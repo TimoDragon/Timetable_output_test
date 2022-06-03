@@ -28,11 +28,13 @@ public class Timetable {
     }
     
     public void printTimetable() {
-        int[] maxLengths = { 0, 0, 0, 0, 0 };
+        int[] maxLengths = new int[table.length];
         int maxHeight = 0;
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < table.length; i++) {
+            maxLengths[i] = 0;
+
+            for (int j = 0; j < table[0].length; j++) {
                 if (table[i][j] != null) {
                     if (table[i][j].length() > maxLengths[i]) {
                         maxLengths[i] = table[i][j].length();
@@ -48,20 +50,17 @@ public class Timetable {
         for (int i = 0; i < maxHeight + 1; i++) {
             printline(maxLengths);
 
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < table.length; j++) {
                 if (table[j][i] != null) {
                     System.out.print("| " + table[j][i] + " ");
-                }
-                else {
-                    System.out.print("|  ");
-                }
 
-                if (table[j][i] != null) {
                     for (int k = 0; k < maxLengths[j] - table[j][i].length(); k++) {
                         System.out.print(" ");
                     }
                 }
                 else {
+                    System.out.print("|  ");
+
                     for (int k = 0; k < maxLengths[j]; k++) {
                         System.out.print(" ");
                     }
@@ -74,7 +73,7 @@ public class Timetable {
     }
 
     void printline(int[] maxLengths) {
-        for (int j = 0; j < 5; j++) {
+        for (int j = 0; j < table.length; j++) {
             System.out.print("+");
             for (int k = 0; k < maxLengths[j] + 2; k++) {
                 System.out.print("-");
